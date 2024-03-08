@@ -13,7 +13,7 @@ export function sendEmail (email,token){
         from: process.env.MYEMAIL,
         to: email,
         subject: 'forgot password',
-        text: `http://localhost:3000/reset-password/${token}`
+        text: `https://auth-8dxr.onrender.com/reset-password/${token}`
       };
       
       transporter.sendMail(mailOptions, function(error, info){
