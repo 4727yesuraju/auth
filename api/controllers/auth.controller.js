@@ -101,7 +101,7 @@ export async function resetPassword(req,res){
         
         const user = await User.findByIdAndUpdate(decode.id,{password:hashedPassword});
         res.status(200).json({
-          message : "successfullY reset"
+          message : `${user.username} password successfullY reset `
         })
     } catch (error) {
         console.log("Error in reset-password controller",error.message);
