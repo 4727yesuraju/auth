@@ -9,7 +9,7 @@ export const Logout = () => {
   return (
     <div>
         <button onClick={handleClick} disabled={loading} className='btn btn-block btn-sm mt-2 '>
-            {loading ? <span className="loading loading-spinner"></span> : "Login" }
+            {loading ? <span className="loading loading-spinner"></span> : "Logout" }
         </button>
   	</div>
   )
