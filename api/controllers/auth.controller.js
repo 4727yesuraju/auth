@@ -80,9 +80,8 @@ export async function forgotPassword(req,res){
 
         const token = jwt.sign({id:user._id},process.env.KEY,{expiresIn:"90min"});
         sendEmail(email,token);
-        console.log(email);
         res.status(200).json({
-           
+           message : "Link send to email successfully"
         })
     } catch (error) {
         console.log("Error in forgot-password controller",error.message);
@@ -102,7 +101,7 @@ export async function resetPassword(req,res){
         
         const user = await User.findByIdAndUpdate(decode.id,{password:hashedPassword});
         res.status(200).json({
-          message : "successfull reset"
+          message : "successfullY reset"
         })
     } catch (error) {
         console.log("Error in reset-password controller",error.message);
