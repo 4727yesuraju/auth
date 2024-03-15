@@ -23,6 +23,7 @@ export default function UpdatePost({post}) {
         });
         const data = await res.json();
         setLiked(data.state);
+        getUserPosts();
         
     }
 
@@ -98,8 +99,9 @@ export default function UpdatePost({post}) {
             </div>
            
             <div className="w-[90%] p-2 flex gap-3 items-center">
-                <button onClick={()=>{handlePost(post._id)}}>
+                <button onClick={()=>{handlePost(post._id)}} className="flex items-center gap-2">
                     {liked ? <FcLike /> :<FcLikePlaceholder />}
+                    {post.likes.length}
                 </button>
                 <button onClick={()=>{handleComment(post._id)}}>
                    <TfiComments />
@@ -109,7 +111,6 @@ export default function UpdatePost({post}) {
             </div>
             <div className="w-[90%]">
                 {show && <div className="w=[100%]">
-                    {console.log(post.replies)}
                     {
                         post?.replies?.map((comment)=>{
                             return <div className="w-[100%]">

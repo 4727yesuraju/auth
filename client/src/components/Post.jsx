@@ -55,13 +55,14 @@ export default function Post({post}) {
                 <pre>created by : {post.username}</pre>
                 <ReactTimeAgo date={post.createdAt} locale='en-US' />
             </div>
-            <Link className="w-[90%] mb-1 bg-red-500" to={`/${post._id}`}>
+            <Link className="w-[90%] mb-1" to={`/${post._id}`}>
                 <p>{post.text}</p>
             </Link>
             
             <div className="w-[90%] p-2 flex gap-5 items-center">
-                <button  onClick={()=>{handlePost(post._id)}}>
+                <button  onClick={()=>{handlePost(post._id)}} className="flex items-center gap-2">
                     {liked ? <FcLike /> :<FcLikePlaceholder />}
+                    {post.likes.length}
                 </button>
                 <button onClick={()=>{handleComment(post._id)}}>
                    <TfiComments />

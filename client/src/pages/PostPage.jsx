@@ -17,9 +17,9 @@ export default function PostPage() {
     const [liked,setLiked] = useState(post?.likes?.includes(authUser._id));
     useEffect(()=>{
         getPost(postId);
-        console.log(post);
-        console.log(post.likes,authUser._id);
-    },[])
+        setLiked(post?.likes?.includes(authUser._id))
+    },[post,liked,setLiked])
+
     async function handlePost(id){
         const res = await fetch(`api/post/like/${id}`,{
             method:"PUT"
@@ -65,8 +65,9 @@ export default function PostPage() {
                 <p>{post.text}</p>
             </div>
             <div className="w-[90%] p-2 flex gap-3 items-center">
-                <button onClick={()=>{handlePost(post._id)}}>
+                <button onClick={()=>{handlePost(post._id)}}  className="flex items-center gap-2">
                     {liked ? <FcLike /> :<FcLikePlaceholder />}
+                    {post?.likes?.length}
                 </button>
                 <button onClick={()=>{handleComment(post._id)}}>
                    <TfiComments />
