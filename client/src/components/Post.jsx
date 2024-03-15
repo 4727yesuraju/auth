@@ -42,7 +42,6 @@ export default function Post({post}) {
                 body:JSON.stringify({text:comment})
             });
             const data = await res.json();
-            console.log(data);
             getAllPosts();
         } catch (error) {
             console.log(error.message);

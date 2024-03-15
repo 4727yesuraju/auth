@@ -25,14 +25,12 @@ export default function UserPosts() {
           body:JSON.stringify({text,postedBy:authUser._id})
         });
         const data = await res.json();
-        console.log(data);
         getUserPosts();
        } catch (error) {
          console.log(error.message);
        }
 
     }
-    console.log(posts);
   return (
     <div className="w-[90%] p-2 overflow-scroll">
          <div className="flex justify-between p-2 pb-4 items-center">

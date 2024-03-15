@@ -51,6 +51,7 @@ export default function UpdatePost({post}) {
     }
 
     async function handleDeletePost(id){    
+        if(!confirm("ok to delete")) return ;
         try {
             const res = await fetch(`api/post/delete/${id}`,{
                 method:"DELETE"});

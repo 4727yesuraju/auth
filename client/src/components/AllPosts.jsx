@@ -11,7 +11,6 @@ export default function AllPosts() {
 
     useEffect(()=>{
          getAllPosts();
-         console.log(posts);
     },[])
   return (
     <div className="w-[90%] p-2 overflow-scroll">
