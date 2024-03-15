@@ -14,10 +14,6 @@ const postSchema = mongoose.Schema(
 			type: String,
 			maxLength: 500,
 		},
-		img: {
-			type: String,
-            default:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D"
-		},
 		likes: {
 			// array of user ids
 			type: [mongoose.Schema.Types.ObjectId],
