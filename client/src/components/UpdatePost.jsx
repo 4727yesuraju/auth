@@ -11,6 +11,7 @@ import useGetUserPost from '../hooks/useGetUserPost';
 import { MdDelete } from "react-icons/md";
 
 export default function UpdatePost({post}) {
+    const [show,setShow] = useState(false);
     const {authUser} = useAuthContext();
     const [liked,setLiked] = useState(post?.likes.includes(authUser._id));
     const {loading,getUserPosts} =  useGetUserPost();
@@ -104,6 +105,20 @@ export default function UpdatePost({post}) {
                    <TfiComments />
                 </button>
                 <p>{post.replies.length} {post.replies.length ===1 ? "comment" : "comments"}</p>
+                <button onClick={()=>setShow(!show)}>{!show ? "show comments" : "hide comments "}</button>
+            </div>
+            <div className="w-[90%]">
+                {show && <div className="w=[100%]">
+                    {console.log(post.replies)}
+                    {
+                        post?.replies?.map((comment)=>{
+                            return <div className="w-[100%]">
+                                     <span className="text-[10px]">{comment.username}</span>
+                                     <p className="pl-1 text-[20px]">{comment.text}</p>
+                                </div>
+                        })
+                    }
+                    </div>}
             </div>
     </div>
   )
