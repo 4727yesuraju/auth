@@ -16,7 +16,7 @@ export default function AllPosts() {
     <div className="w-[90%] p-2 overflow-scroll">
         <div className="flex justify-between p-2 pb-4">
             <h1>posts</h1>
-            <button onClick={()=>setGetUserPosts(true)}>get user posts</button>
+            <button className="underline" onClick={()=>setGetUserPosts(true)}>get user posts</button>
         </div>
         {
             posts.map((post)=>{

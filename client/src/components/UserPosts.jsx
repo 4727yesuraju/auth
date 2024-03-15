@@ -36,7 +36,7 @@ export default function UserPosts() {
          <div className="flex justify-between p-2 pb-4 items-center">
             <h1>User posts</h1>
             <button className="border-2 p-2 pl-5 pr-5 rounded-lg bg-[aqua] hover:opacity-65" onClick={handleCreatePost}>create post</button>
-            <button onClick={()=>setGetUserPosts(false)}>get all posts</button>
+            <button className="underline" onClick={()=>setGetUserPosts(false)}>get all posts</button>
 
         </div>
         {
