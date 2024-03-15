@@ -5,8 +5,11 @@ import { config } from 'dotenv';
 
 //importing router
 import authRoute from './routes/auth.routes.js';
+import postRoute from './routes/post.routes.js';
 
 import { connectToMongoDB } from './db/connectToMongoDB.js';
+
+
 
 const __dirname = path.resolve();
 const app = express();
@@ -19,6 +22,8 @@ const PORT = process.env.PORT || 3000;
 
 //using routes
 app.use('/api/auth',authRoute);
+
+app.use("/api/post",postRoute);
 
 app.use(express.static(path.join(__dirname,"/client/dist")));
 
