@@ -13,7 +13,6 @@ export default function Post({post}) {
     const [liked,setLiked] = useState(post.likes.includes(authUser._id));
     const [show,setShow] = useState(false);
     async function handlePost(id){
-        console.log("hia")
         try {
             const res = await fetch(`api/post/like/${id}`,{
                 method:"PUT"
@@ -71,10 +70,9 @@ export default function Post({post}) {
             </div>
             <div className="w-[90%]">
                 {show && <div className="w=[100%]">
-                    {console.log(post.replies)}
                     {
-                        post?.replies?.map((comment)=>{
-                            return <div className="w-[100%]">
+                        post?.replies?.map((comment,id)=>{
+                            return <div className="w-[100%]" key={id}>
                                      <span className="text-[10px]">{comment.username}</span>
                                      <p className="pl-1 text-[20px]">{comment.text}</p>
                                 </div>

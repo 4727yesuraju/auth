@@ -1,6 +1,8 @@
 import Post from "../model/Postmodel.js";
 import User from "../model/user.model.js";
 
+import jwt from "jsonwebtoken";
+
 
 export const createPost = async (req, res) => {
 	try {
@@ -24,8 +26,9 @@ export const createPost = async (req, res) => {
 			return res.status(400).json({ error: `Text must be less than ${maxLength} characters` });
 		}
 
+		const decryptedText = jwt.sign(text,process.env.KEY);
 
-		const newPost = new Post({ postedBy, text, username:user.username });
+		const newPost = new Post({ postedBy, text : decryptedText, username:user.username });
 		await newPost.save();
 
 		res.status(201).json(newPost);
@@ -73,17 +76,25 @@ export const  getUserPosts =  async (req, res)=>{
 		}
 
 		const posts = await Post.find({ postedBy: user._id }).sort({ createdAt: -1 });
-
-		res.status(200).json(posts);
+		
+		const newPosts  = posts.map(({_doc})=>{
+			return {..._doc,text : jwt.verify(_doc.text,process.env.KEY)}
+		})
+		res.status(200).json(newPosts);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
 }
+
 export const  getAllPosts =  async (req, res)=>{
 	try {
 		const posts = await Post.find().sort({ createdAt: -1 });
 
-		res.status(200).json(posts);
+		const newPosts  = posts.map(({_doc})=>{
+			return {..._doc,text : jwt.verify(_doc.text,process.env.KEY)}
+		})
+		res.status(200).json(newPosts);
+
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -96,8 +107,8 @@ export const getPost = async (req, res) => {
 		if (!post) {
 			return res.status(404).json({ error: "Post not found" });
 		}
-
-		res.status(200).json(post);
+		const newPost = {...post._doc,text:jwt.verify(post._doc.text,process.env.KEY)}
+		res.status(200).json(newPost);
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}
@@ -113,7 +124,9 @@ export const  updatePost =  async (req, res)=>{
 		if (post.postedBy.toString() !== req.user._id.toString()) {
 			return res.status(401).json({ error: "Unauthorized to update post" });
 		}
-		await Post.findByIdAndUpdate(req.params.id,{text});
+		
+		const decryptedText = jwt.sign(text,process.env.KEY);
+		await Post.findByIdAndUpdate(req.params.id,{text:decryptedText});
 
 		res.status(200).json({ message: "Post updated successfully" });
 	} catch (err) {

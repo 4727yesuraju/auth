@@ -10,15 +10,16 @@ import useGetPost from '../hooks/useGetPost';
 
 export default function PostPage() {
     const [show,setShow] = useState(false);
-    const {authUser,post} = useAuthContext();
+    const {authUser,post,setPost} = useAuthContext();
     const {getAllPosts} = useGetAllPosts();
     const {postId} = useParams()
     const {loading,getPost} = useGetPost();
     const [liked,setLiked] = useState(post?.likes?.includes(authUser._id));
+
     useEffect(()=>{
         getPost(postId);
-        setLiked(post?.likes?.includes(authUser._id))
-    },[post,liked,setLiked])
+        setLiked(post?.likes?.includes(authUser._id));
+    },[post])
 
     async function handlePost(id){
         const res = await fetch(`api/post/like/${id}`,{

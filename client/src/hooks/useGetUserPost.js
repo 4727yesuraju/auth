@@ -11,7 +11,6 @@ export default function useGetUserPost() {
          const res = await fetch(`/api/post/user/${authUser.username}`);
          const data = await res.json();
          if(data.error)  throw new Error(data.error);
-         console.log(data);
          setPosts(data);
      } catch (error) {
          toast.error(error.message);
