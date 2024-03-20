@@ -4,11 +4,9 @@ import protectRoute from '../middleware/protectedRoute.js';
 
 const router = express.Router();
 
-//not need authentication
-router.get("/getall", getAllPosts);
-router.get("/getpost/:id", getPost);
 
-//need authentication
+router.get("/getall",protectRoute, getAllPosts);
+router.get("/getpost/:id",protectRoute, getPost);
 router.get("/user/:username",protectRoute, getUserPosts);
 router.post("/create", protectRoute, createPost);
 router.delete("/delete/:id", protectRoute, deletePost);
